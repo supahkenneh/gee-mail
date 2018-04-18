@@ -1,0 +1,54 @@
+body{
+    background-color: aliceblue;
+}
+
+#maintitle {
+    text-align: center;
+    font-size: 50px;
+    border-style: double;
+    border-width: 5px;
+    border-radius: 10px;
+    background-color: lightblue;
+    margin-top: 50px;
+}
+
+
+#compose, #inbox, #outbox,#trash{
+    display: inline;
+    margin: 50px;
+    font-size: 25px;
+}
+
+#inboxcontent {
+    border-style: solid;
+    border-width: 3px;
+    background-color: lightblue;
+}
+
+.content {
+    border: solid;
+    border-width: 2px;
+}
+
+.content table {
+    width: 100%;
+}
+
+#date, #subject, #sender, #body {
+    border: solid;
+    border-width: 1px;
+    font-size: 18px;
+}
+
+p {
+    font-size: 16px;
+}
+
+.messageBody td {
+    color:red;
+}
+.messageBody.hidden td {
+    display: none;
+}
+
+

@@ -1,4 +1,4 @@
-(function(){
+(function (){
   /*This is the mail generator file that will generate initial mail messages and expose methods for creating new messages in your project. Do not make any modifications to this file for your solution. Happy coding!*/
 
 

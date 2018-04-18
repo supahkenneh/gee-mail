@@ -3,16 +3,77 @@
 		<script src="js/mail-generator.js"></script>
 		<link href="css/style.css" rel="stylesheet" media="screen">
     <script>
-      window.onload = function(){
-        // ALL OF YOUR JAVASCRIPT CODE SHOULD GO HERE. 
-        // We have to use window.onload so your JavaScript doesn't execute until the page has loaded and all HTML has been downloaded to your browser
-        
+      window.onload = function (){
+
+				var tbody = document.getElementById('table-body');
+				for (var i=0; i < geemails.length; i++){
+					var mail = geemails[i];
+					var newTr = document.createElement('tr');
+					var newTd;
+
+					newTd = document.createElement('td');
+					newTd.innerHTML = mail.date;
+					newTr.appendChild(newTd);
+
+					newTd = document.createElement('td');
+					newTd.innerHTML = mail.sender;
+					newTr.appendChild(newTd);
+
+					newTd = document.createElement('td');
+					newTd.innerHTML = mail.subject;
+					newTr.appendChild(newTd);
+
+					tbody.appendChild(newTr);
+					
+					var bodyTr = document.createElement('tr');
+					var bodyTd = document.createElement('td');
+					bodyTd.setAttribute('colspan', '3');
+					bodyTr.classList.add('messageBody');
+					bodyTr.classList.add('hidden');
+
+					bodyTd.innerHTML = mail.body;
+					bodyTr.appendChild(bodyTd);
+					tbody.appendChild(bodyTr);
+
+					newTr.addEventListener('click', showMsg);
+					function showMsg(newTr){
+						newTr.currentTarget.nextElementSibling.classList.toggle('hidden')
+					};
+
+					// newTr.addEventListener('click', function (e) {
+					// 	newTr.currentTarget.nextElementSibling.classList.toggle('hidden')
+					// });
+
+				}
+
       };
-    </script>
+		</script>	
+		<title>Your GeeMail</title>
 	</head>
 	<body>
-		<div class="container" id="main">
-			Build Me!
+		<div class="title">
+			<h1 id="maintitle">GeeMail</h1>
 		</div>
+		<div class="headers">
+			<button id="compose">Compose</button>
+			<button id="inbox">Inbox</button>
+			<button id="outbox">Outbox</button>
+			<button id="trash">Trash</button>
+		</div>
+		<div class="content">
+			<table>
+				<thead>
+					<tr>
+						<th id='date'>Date</th>
+						<th id='subject'>Subject</th>
+						<th id='sender'>Sender</th>
+						<!-- <th id='body'>Body</th> -->
+					</tr>
+				</thead>
+				<tbody id="table-body"></tbody>
+			</table>
+		</div>
+
+	
 	</body>
 </html>

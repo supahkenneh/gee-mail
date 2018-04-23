@@ -1,5 +1,6 @@
 body{
-    background-color: aliceblue;
+    background-color: #E6EBE0;
+    font-family: 'Open Sans', sans-serif;
 }
 
 #maintitle {
@@ -7,16 +8,27 @@ body{
     font-size: 50px;
     border-style: double;
     border-width: 5px;
-    border-radius: 10px;
-    background-color: lightblue;
+    border-radius: 25px;
+    background-color: #F4F1BB;
     margin-top: 50px;
+    font-family: 'Raleway', sans-serif;
 }
 
 
-#compose, #inbox, #outbox,#trash{
+#compose, #inbox, #outbox, #trash {
     display: inline;
     margin: 50px;
     font-size: 25px;
+    background-color: #E6EBE0
+
+}
+
+.headers {
+    text-align: center; 
+    border: double;
+    border-width: 1px;
+    border-radius: 25px;
+    background-color: #F4F1BB
 }
 
 #inboxcontent {
@@ -28,16 +40,22 @@ body{
 .content {
     border: solid;
     border-width: 2px;
+    border-radius: 25px;
+    background-color: #F4F1BB
 }
 
 .content table {
     width: 100%;
 }
 
+
 #date, #subject, #sender, #body {
     border: solid;
     border-width: 1px;
     font-size: 18px;
+    border-radius: 25px;
+    padding: 10px;
+    text-decoration: underline;
 }
 
 p {
@@ -45,10 +63,108 @@ p {
 }
 
 .messageBody td {
-    color:red;
+    border-style: double;
+    border-radius: 25px;
+    padding: 10px;
+    font-size: 18px;
+    background-color: #E6EBE0;
 }
 .messageBody.hidden td {
     display: none;
 }
 
+#count {
+    background-color: #ED6A5A;
+    padding: 10px;
+    border-radius: 25px;
+    border-style: solid;
+    text-align: center;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+}
+
+.unavailable {
+    background-color: white;
+    margin: 15% auto;
+    padding: 20px; 
+    border: 1px solid #888;
+    width: 80%;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.cModal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+}
+
+.makeMsg {
+    background-color: white;
+    margin: 15% auto;
+    padding: 20px; 
+    border: 1px solid #888;
+    width: 80%;
+}
+
+.write {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.write:hover,
+.write:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#newMessages {
+    text-align: left;
+}
+
+.to {
+    margin-left: 47;
+}
+
+.subject {
+    margin-left: 10;
+}
+
+.msgButton {
+    font-size: 18px;
+    margin: 10px;
+}
 

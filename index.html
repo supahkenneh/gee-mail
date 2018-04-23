@@ -2,45 +2,106 @@
 	<head>
 		<script src="js/mail-generator.js"></script>
 		<link href="css/style.css" rel="stylesheet" media="screen">
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans|Raleway:300,400" rel="stylesheet">
     <script>
       window.onload = function (){
 
-				var tbody = document.getElementById('table-body');
-				for (var i=0; i < geemails.length; i++){
-					var mail = geemails[i];
-					var newTr = document.createElement('tr');
-					var newTd;
+				function buildInbox(){
+					var tbody = document.getElementById('table-body');
+					tbody.innerHTML = '';
 
-					newTd = document.createElement('td');
-					newTd.innerHTML = mail.date;
-					newTr.appendChild(newTd);
+					for (var i=0; i < geemails.length; i++) {
+						var mail = geemails[i];
+						var newTr = document.createElement('tr');
+						var newTd;
 
-					newTd = document.createElement('td');
-					newTd.innerHTML = mail.sender;
-					newTr.appendChild(newTd);
+						newTd = document.createElement('td');
+						newTd.innerHTML = mail.date;
+						newTr.appendChild(newTd);
 
-					newTd = document.createElement('td');
-					newTd.innerHTML = mail.subject;
-					newTr.appendChild(newTd);
+						newTd = document.createElement('td');
+						newTd.innerHTML = mail.subject;
+						newTr.appendChild(newTd);
 
-					tbody.appendChild(newTr);
-					
-					var bodyTr = document.createElement('tr');
-					var bodyTd = document.createElement('td');
-					bodyTd.setAttribute('colspan', '3');
-					bodyTr.classList.add('messageBody');
-					bodyTr.classList.add('hidden');
+						newTd = document.createElement('td');
+						newTd.innerHTML = mail.sender;
+						newTr.appendChild(newTd);
 
-					bodyTd.innerHTML = mail.body;
-					bodyTr.appendChild(bodyTd);
-					tbody.appendChild(bodyTr);
+						tbody.appendChild(newTr);
+						
+						var bodyTr = document.createElement('tr');
+						var bodyTd = document.createElement('td');
+						bodyTd.setAttribute('colspan', '3');
+						bodyTr.classList.add('messageBody');
+						bodyTr.classList.add('hidden');
 
-					newTr.addEventListener('click', showMsg);
-					function showMsg(newTr){
-						newTr.currentTarget.nextElementSibling.classList.toggle('hidden')
-					};
-					
+						bodyTd.innerHTML = mail.body;
+						bodyTr.appendChild(bodyTd);
+						tbody.appendChild(bodyTr);
+
+						newTr.addEventListener('click', showMsg);
+						function showMsg(newTr){
+							newTr.currentTarget.nextElementSibling.classList.toggle('hidden')
+						};
+					}
+
+					var counter = geemails.length;
+					document.getElementById('count').innerHTML = 'You have ' + counter + ' messages.'
 				}
+
+				buildInbox();
+
+				setInterval(function genMail(){
+					geemails.unshift(getNewMessage());
+					buildInbox();
+				}, 10000);
+			
+			var modal = document.getElementById('trashModal');
+			var btn = document.getElementById('trash');
+			var outBtn = document.getElementById('outbox');
+			var exit = document.getElementsByClassName('close')[0];
+
+			var mMsg = document.getElementById('compose');
+			var cMsg = document.getElementsByClassName('write')[0];
+			var nModal = document.getElementById('composeModal');
+			var canMsg = document.getElementById('cancelMessage');
+		
+			mMsg.onclick = function(){
+				nModal.style.display = 'block';
+			}
+
+			cMsg.onclick = function(){
+				nModal.style.display = 'none';
+			}
+
+			canMsg.onclick = function(){
+				nModal.style.display = 'none';
+			}
+
+			window.onclick = function(event){
+				if (event.target === nModal){
+					nModal.style.display = 'none';
+				}
+			}
+						
+			btn.onclick = function(){
+				modal.style.display = 'block';
+			}
+
+			outBtn.onclick= function(){
+				modal.style.display = 'block';
+			}
+
+			exit.onclick = function(){
+				modal.style.display = 'none';
+			}
+
+			window.onclick = function(event){
+				if (event.target === modal){
+					modal.style.display = 'none';
+				}
+			}
+
 
       };
 		</script>	
@@ -52,9 +113,46 @@
 		</div>
 		<div class="headers">
 			<button id="compose">Compose</button>
+				<div id="composeModal", class ='cModal'>
+					<div class="makeMsg">
+						<span class="write">&times;</span>
+						<div id="newMessages">
+							<form action="/action_page.php"></form>
+							<p class="lables">To:
+									<input type="text" class="to" placeholder="Insert addressee here">
+							</p>
+							<p class="lables">Subject:
+									<input type="text" class="subject" placeholder="Enter subject">
+							</p>
+							<br>
+							<p class="lables", id="msgBox">Message:</p>
+								<textarea name="message" id="inputMessage" cols="120" rows="20" placeholder="What do you want to say?"></textarea>
+							<br>
+							<button class="msgButton">Send</button>
+							<button class="msgButton">Save</button>
+							<button class="msgButton" id="cancelMessage">Cancel</button>
+						</div>
+					</div>
+				</div>
 			<button id="inbox">Inbox</button>
-			<button id="outbox">Outbox</button>
-			<button id="trash">Trash</button>
+			<button class="error", id='outbox'>Outbox</button>
+				<div id="trashModal", class = 'modal'=>
+					<div class="unavailable">
+						<span class="close">&times;</span>
+						<p>Sorry! This feature is currently unavailable.</p>
+					</div>
+				</div>
+			<button class="error", id='trash'>Trash</button>
+			<div id="trashModal", class='modal'>
+				<div class="unavailable">
+					<span class="close">&times;</span>
+					<p>Sorry! This feature is currently unavailable.</p>					
+				</div>
+			</div>
+
+		</div>
+		<div class="counter">
+			<h4 id="count"></h4>
 		</div>
 		<div class="content">
 			<table>
@@ -63,7 +161,6 @@
 						<th id='date'>Date</th>
 						<th id='subject'>Subject</th>
 						<th id='sender'>Sender</th>
-						<!-- <th id='body'>Body</th> -->
 					</tr>
 				</thead>
 				<tbody id="table-body"></tbody>
